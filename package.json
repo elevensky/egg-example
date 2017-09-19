@@ -10,7 +10,9 @@
   "author": "elevensky",
   "license": "ISC",
   "dependencies": {
-    "egg": "^1.8.0"
+    "egg": "^1.8.0",
+    "egg-mongoose": "^2.1.1",
+    "egg-mysql": "^3.0.0"
   },
   "devDependencies": {
     "egg-bin": "^4.3.2"
