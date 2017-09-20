@@ -1,18 +1,22 @@
 {
-  "name": "egg-blog",
+  "name": "egg-example",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "egg-bin dev",
+    "debug": "egg-bin debug",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "elevensky",
   "license": "ISC",
   "dependencies": {
     "egg": "^1.8.0",
+    "egg-jwt": "^2.2.0",
     "egg-mongoose": "^2.1.1",
-    "egg-mysql": "^3.0.0"
+    "egg-mysql": "^3.0.0",
+    "egg-validate": "^1.0.0",
+    "trek-captcha": "^0.4.0"
   },
   "devDependencies": {
     "egg-bin": "^4.3.2"
