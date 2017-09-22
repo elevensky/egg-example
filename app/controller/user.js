@@ -8,8 +8,6 @@ module.exports = app => {
         async create() {
             const { ctx } = this;
             ctx.validate(createRule);
-            console.log(ctx.request.body);
-            return;
             const id = await ctx.service.user.create(ctx.request.body);
             ctx.body = {
                 topic_id: id,
