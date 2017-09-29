@@ -1,4 +1,5 @@
 /**
+ * elevensky
  * 用户表
  */
 const crypto = require('crypto')
@@ -15,10 +16,6 @@ module.exports = app => {
             type: String,
             lowercase: true,
             unique: true,
-        },
-        provider: {
-            type:String,
-            default:'local'
         },
         weibo: {
             id: String,
@@ -63,39 +60,24 @@ module.exports = app => {
     UserSchema
     .virtual('password')
     .set(function(password) {
-    this._password = password
-    this.salt = this.makeSalt()
-    this.hashedPassword = this.encryptPassword(password)
+        this._password = password
+        this.salt = this.makeSalt()
+        this.hashedPassword = this.encryptPassword(password)
     })
     .get(function() {
-    return this._password
+        return this._password
     })
-
 
     UserSchema
     .virtual('userInfo')
     .get(function() {
     return {
-        'nickname': this.nickname,
-        'role': this.role,
-        'email': this.email,
-        'avatar': this.avatar,
-        'likes':this.likeList,
-        'provider':this.provider
-    }
-    })
-
-    UserSchema
-    .virtual('providerInfo')
-    .get(function() {
-    return {
-        'qq': this.qq,
-        'github': this.github,
-        'weibo': this.weibo,
-        'facebook': this.facebook,
-        'google':this.google,
-        'twitter':this.twitter
-    }
+            'name': this.name,
+            'role': this.role,
+            'email': this.email,
+            'avatar': this.avatar,
+            'likes':this.likeList,
+        }
     })
 
     // Non-sensitive info we'll be putting in the token
@@ -103,9 +85,9 @@ module.exports = app => {
     .virtual('token')
     .get(function() {
     return {
-        '_id': this._id,
-        'role': this.role
-    }
+            '_id': this._id,
+            'role': this.role
+        }
     })
 
     UserSchema
@@ -121,7 +103,7 @@ module.exports = app => {
                 cb(true)
             })
         },
-        message: '这个呢称已经被使用!',
+        message: '这个昵称已经被使用!',
     })
 
     UserSchema
@@ -139,6 +121,7 @@ module.exports = app => {
         },
         message: '这个email已经被使用!',
     })
+
     /**
     * methods
     */
@@ -149,7 +132,7 @@ module.exports = app => {
             return (selfRoles.indexOf('admin') !== -1 || selfRoles.indexOf(role) !== -1)
         },
         //验证用户密码
-        authenticate: function(plainText) {
+        comparePassword: function(plainText) {
             return this.encryptPassword(plainText) === this.hashedPassword
         },
         //生成盐
@@ -161,7 +144,7 @@ module.exports = app => {
             if (!password || !this.salt) return ''
             var salt = new Buffer(this.salt, 'base64')
             return crypto.pbkdf2Sync(password, salt, 10000, 64, 'sha1').toString('base64')
-        }
+        },
     }
 
     UserSchema.set('toObject', { virtuals: true })

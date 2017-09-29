@@ -26,3 +26,8 @@ exports.security = {
         enable: false,
     },
 };
+
+exports.validate = {
+    enable: true,
+    package: 'egg-validate',
+};
