@@ -3,25 +3,25 @@ const captcha = require('trek-captcha')
 module.exports = app => {
     class UserController extends app.Controller {
         async login() {
-            const { ctx } = this;
-            const {name, password} = ctx.request.body;
+            const { ctx, service } = this;
+            const {email, password} = ctx.request.body;
             const createRule = {
                 email: { type: 'string' },
                 password: { type: 'string' },
             };
             // 校验参数
-            ctx.validate(createRule);
+            // ctx.validate(createRule);
             try {
-                const user = await User.findByEmail(email)
-                const isMatch = await user.comparePassword(passwd);
+                const user = await service.user.findUserByEmail(email)
+                const isMatch = await user.comparePassword(password);
                 if(!isMatch){
                   ctx.throw(423, '用户名或密码错误！')
                 }
-                const token = base.signToke(user)
+                const token = app.jwt.sign({ id: user._id }, app.config.jwt.secret);
                 ctx.body = {
                   code: 200,
+                  token: token,
                   message: '登录成功!',
-                  // token: token
                 }
             } catch(e) {
                 ctx.throw(e)
@@ -49,6 +49,10 @@ module.exports = app => {
               _id: data._id,
             };
             ctx.status = 201;
+        }
+
+        async info() {
+            const { ctx, service } = this;
         }
 
         getUserList() {
