@@ -53,6 +53,12 @@ module.exports = app => {
 
         async info() {
             const { ctx, service } = this;
+            const user = ctx.state.user;
+            const userInfo = await service.user.findById(user.id);
+            ctx.body = {
+                userInfo,
+            };
+            ctx.status = 200;
         }
 
         getUserList() {

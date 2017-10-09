@@ -16,8 +16,8 @@ module.exports = app => {
 
         async findById(uid) {
             // 假如 我们拿到用户 id 从数据库获取用户详细信息
-            const user = await ctx.model.User.findById(uid);
-            return { user }
+            const user = await this.ctx.model.User.findById(uid);
+            return user;
         }
 
         async findUserByEmail(email) {

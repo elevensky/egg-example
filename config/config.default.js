@@ -18,7 +18,9 @@ exports.robot = {
 };
 
 exports.jwt = {
+    enable: true,
     secret: '123456',
+    ignore: /^(\/api\/login|\/api\/register|\/api\/index)/
 };
 
 exports.security = {

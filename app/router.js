@@ -1,5 +1,5 @@
 module.exports = app => {
-    app.get('/api', 'home.index');
+    app.get('/api/index', 'home.index');
 
     // 用户相关api
     app.post('/api/login', 'user.login');
